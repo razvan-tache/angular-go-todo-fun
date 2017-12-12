@@ -9,6 +9,11 @@ describe('angular-go-todo-fun App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getHeading()).toEqual('Welcome to app!');
+  });
+
+  it('should display home component message', () => {
+    page.navigateTo();
+    expect(page.getHomeComponentMessage()).toEqual('home works!');
   });
 });
