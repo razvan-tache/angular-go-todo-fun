@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
+  }
+
+  mockHttp() {
+    console.log('here');
+    const custom = this.httpClient.get('/api/authenticate').toPromise();
+    console.log(custom);
   }
 
 }

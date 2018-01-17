@@ -6,8 +6,8 @@ import { AppRouterModule } from './modules/router/router-module/app-router.modul
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FakeBackendService} from './services/fakebackend/fake-backend.service';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,15 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
   imports: [
     BrowserModule,
     AppRouterModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FakeBackendService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
