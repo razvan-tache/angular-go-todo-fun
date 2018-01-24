@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FakeBackendService} from '../../services/fakebackend/fake-backend.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,6 +10,16 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule
+      ],
+      providers: [
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: FakeBackendService,
+          multi: true
+        }
+      ],
       declarations: [ HomeComponent ]
     })
     .compileComponents();
