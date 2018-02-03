@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from '../../../components/home/home.component';
-import { SignUpComponent } from '../../../components/sign-up/sign-up.component';
-import {AuthService} from '../../core/services/auth/auth.service';
+import { HomeComponent } from '../../components/home/home.component';
+import { SignUpComponent } from '../../components/sign-up/sign-up.component';
+import {AuthService} from '../core/services/auth/auth.service';
+import {LoginComponent} from '../../components/login/login.component';
+import {AuthGuardService} from './services/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'sign-up', component: SignUpComponent }
+  { path: '', component: HomeComponent, canActivate: [AuthGuardService]},
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -19,7 +22,8 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   declarations: []
 })

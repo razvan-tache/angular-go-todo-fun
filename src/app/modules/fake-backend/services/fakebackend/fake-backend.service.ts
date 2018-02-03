@@ -14,7 +14,7 @@ import {UserApiResourceHandler} from '../../library/user-api-resource-handler';
 
 @Injectable()
 export class FakeBackendService implements HttpInterceptor {
-  private apiResourcesHandler: FakeApiResourceHandler[];
+  private apiResourcesHandler: FakeApiResourceHandler[] = [];
 
   constructor() {
     this.apiResourcesHandler.push(new AuthApiResourceHandler());
