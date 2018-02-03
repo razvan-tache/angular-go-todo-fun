@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FakeBackendService} from '../../services/fakebackend/fake-backend.service';
+import {FakeBackendService} from '../../modules/fake-backend/services/fakebackend/fake-backend.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

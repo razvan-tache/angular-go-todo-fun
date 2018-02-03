@@ -6,8 +6,10 @@ import { AppRouterModule } from './modules/router/router-module/app-router.modul
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FakeBackendService} from './services/fakebackend/fake-backend.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FakeBackendService } from './modules/fake-backend/services/fakebackend/fake-backend.service';
+import { CoreModule } from './modules/core/core.module';
+import { FakeBackendModule } from './modules/fake-backend/fake-backend.module';
 
 /**
  * If not logged in redirect to /login or /register
@@ -32,6 +34,8 @@ import {FakeBackendService} from './services/fakebackend/fake-backend.service';
   imports: [
     BrowserModule,
     AppRouterModule,
+    CoreModule,
+    FakeBackendModule,
     HttpClientModule
   ],
   providers: [

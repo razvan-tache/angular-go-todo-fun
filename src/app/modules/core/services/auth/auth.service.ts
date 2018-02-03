@@ -5,8 +5,8 @@ import {HttpClient} from '@angular/common/http';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/shareReplay';
-import {RegisterRequest} from '../library/auth/register-request';
-import {LoginRequest} from '../library/auth/login-request';
+import {RegisterRequest} from '../../library/auth/register-request';
+import {LoginRequest} from '../../library/auth/login-request';
 
 @Injectable()
 export class AuthService {
