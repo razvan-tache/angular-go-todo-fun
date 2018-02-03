@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../../components/home/home.component';
 import { SignUpComponent } from '../../../components/sign-up/sign-up.component';
+import {AuthService} from '../../core/services/auth/auth.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,9 @@ const routes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AuthService
   ],
   declarations: []
 })
