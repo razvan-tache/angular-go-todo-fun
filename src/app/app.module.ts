@@ -11,6 +11,7 @@ import { FakeBackendService } from './modules/fake-backend/services/fakebackend/
 import { CoreModule } from './modules/core/core.module';
 import { FakeBackendModule } from './modules/fake-backend/fake-backend.module';
 import { LoginComponent } from './components/login/login.component';
+import {FormsModule} from '@angular/forms';
 
 /**
  * If not logged in redirect to /login or /register
@@ -38,7 +39,8 @@ import { LoginComponent } from './components/login/login.component';
     AppRouterModule,
     CoreModule,
     FakeBackendModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     {

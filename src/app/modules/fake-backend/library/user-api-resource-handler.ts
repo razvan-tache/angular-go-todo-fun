@@ -26,7 +26,9 @@ export class UserApiResourceHandler implements FakeApiResourceHandler {
         username: request.body.username,
         password: request.body.password,
         firstName: request.body.firstName,
-        lastName: request.body.lastName
+        lastName: request.body.lastName,
+        token: 'Fake token',
+        expiresIn: 3600
       };
 
       users.push(user);
