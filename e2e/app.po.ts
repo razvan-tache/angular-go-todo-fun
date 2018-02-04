@@ -12,4 +12,8 @@ export class AppPage {
   getHomeComponentMessage() {
     return element(by.css('app-root app-home p')).getText();
   }
+
+  getCurrentUrl() {
+    return browser.getCurrentUrl();
+  }
 }

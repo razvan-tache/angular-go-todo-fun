@@ -12,8 +12,9 @@ describe('angular-go-todo-fun App', () => {
     expect(page.getHeading()).toEqual('Welcome to app!');
   });
 
-  it('should display home component message', () => {
+  it('should be redirected on login page as guest user', () => {
     page.navigateTo();
-    expect(page.getHomeComponentMessage()).toEqual('home works!');
+    // expect(page.getHomeComponentMessage()).toEqual('home works!');
+    expect(page.getCurrentUrl()).toContain('/login');
   });
 });
