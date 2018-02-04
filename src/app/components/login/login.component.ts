@@ -8,13 +8,10 @@ import {Router} from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   model: LoginRequest = {email: '', password: ''};
   loginError = '';
   constructor(private authService: AuthService, private router: Router) { }
-
-  ngOnInit() {
-  }
 
   login() {
     this.authService.login(this.model)

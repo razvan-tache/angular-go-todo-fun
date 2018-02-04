@@ -1,15 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import {RegisterRequest} from '../../modules/core/library/auth/register-request';
+import {AuthService} from '../../modules/core/services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
+  model: RegisterRequest = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: ''
+  };
+  registerError = '';
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  public register() {
+    this.authService.register(this.model)
+      .subscribe(
+        res => this.router.navigate(['/']),
+        error => this.registerError = error
+      );
   }
-
 }

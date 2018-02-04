@@ -6,11 +6,14 @@ import { SignUpComponent } from '../../components/sign-up/sign-up.component';
 import {AuthService} from '../core/services/auth/auth.service';
 import {LoginComponent} from '../../components/login/login.component';
 import {AuthGuardService} from './services/auth-guard.service';
+import {LogoutComponent} from '../../components/logout/logout.component';
+import {AnonymousGuardService} from './services/anonymous-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuardService]},
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'sign-up', component: SignUpComponent, canActivate: [AnonymousGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [AnonymousGuardService] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
@@ -23,7 +26,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    AnonymousGuardService
   ],
   declarations: []
 })

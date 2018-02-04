@@ -18,12 +18,12 @@ export class UserApiResourceHandler implements FakeApiResourceHandler {
   }
 
   private doPost(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const users: any[] = JSON.parse(localStorage.getItem('users'));
+    const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
-    if (isNullOrUndefined(userData => userData.username === request.body.username)) {
+    if (isNullOrUndefined(users.find(userData => userData.email === request.body.email))) {
       const user = {
         id: Math.random() * 10000,
-        username: request.body.username,
+        email: request.body.email,
         password: request.body.password,
         firstName: request.body.firstName,
         lastName: request.body.lastName,
@@ -34,9 +34,9 @@ export class UserApiResourceHandler implements FakeApiResourceHandler {
       users.push(user);
       localStorage.setItem('users', JSON.stringify(users));
 
-      return Observable.of(new HttpResponse({ status: 200 }));
+      return Observable.of(new HttpResponse({ status: 200, body: user }));
     }
 
-    return Observable.throw('Username "' + request.body.username + '" is already taken');
+    return Observable.throw('Username "' + request.body.email + '" is already taken');
   }
 }

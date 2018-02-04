@@ -15,15 +15,15 @@ export class AuthApiResourceHandler implements FakeApiResourceHandler {
   handleRequest(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
-    const username = request.body.username;
+    const email = request.body.email;
     const password = request.body.password;
 
-    const user = users.find(userData => userData.username === username && userData.password === password);
+    const user = users.find(userData => userData.email === email && userData.password === password);
 
     if (!isNullOrUndefined(user)) {
       const body = {
         id: user.id,
-        username: user.username,
+        email: user.email,
         fistName: user.firstName,
         lastName: user.lastName,
         token: 'fake-jwt-token',

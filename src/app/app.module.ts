@@ -12,6 +12,7 @@ import { CoreModule } from './modules/core/core.module';
 import { FakeBackendModule } from './modules/fake-backend/fake-backend.module';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
+import { LogoutComponent } from './components/logout/logout.component';
 
 /**
  * If not logged in redirect to /login or /register
@@ -32,7 +33,8 @@ import {FormsModule} from '@angular/forms';
     AppComponent,
     HomeComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
