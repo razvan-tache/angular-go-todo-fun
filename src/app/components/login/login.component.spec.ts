@@ -45,20 +45,32 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have the form invalid when empty', () => {
+  it('should have the form invalid when empty', async(() => {
     fixture.detectChanges();
-    expect(formEl.nativeElement.checkValidity()).toBe(false);
-    // expect(buttonEl.nativeElement.disabled).toBeTruthy();
-  });
 
-  it('should have the form valid when having valid data', () => {
-    emailEl.nativeElement.value = 'razvan@razvan.razvan';
-    passwordEl.nativeElement.value = '12345678';
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(formEl.nativeElement.checkValidity()).toBe(false);
+      expect(buttonEl.nativeElement.disabled).toBe(true);
+    });
+  }));
 
+  it('should have the form valid when having valid data', async(() => {
     fixture.detectChanges();
-    expect(formEl.nativeElement.valid).toBeTruthy();
-    expect(buttonEl.nativeElement.disabled).toBeTruthy();
-  });
+
+    fixture.whenStable().then(() => {
+      emailEl.nativeElement.value = 'razvan@razvan.razvan';
+      emailEl.nativeElement.dispatchEvent(new Event('input'));
+
+      passwordEl.nativeElement.value = '12345678';
+      passwordEl.nativeElement.dispatchEvent(new Event('input'));
+
+      fixture.detectChanges();
+
+      expect(formEl.nativeElement.checkValidity()).toBe(true);
+      expect(buttonEl.nativeElement.disabled).toBe(false);
+    });
+  }));
 
   it('should do redirect on login with proper credentials', inject(
     [AuthService, Router], (authService: AuthService, router: Router) => {
