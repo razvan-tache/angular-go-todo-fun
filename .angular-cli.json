@@ -49,6 +49,11 @@
     }
   ],
   "test": {
+    "codeCoverage": {
+      "exclude": [
+        "src/app/modules/fake-backend/**/*"
+      ]
+    },
     "karma": {
       "config": "./karma.conf.js"
     }
