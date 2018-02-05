@@ -94,6 +94,9 @@ describe('LoginComponent', () => {
     }
   ));
 
+  //TODO: test invalid emails:
+  //TODO: test small passwords:
+  //TODO: 
   it('should display the error message it receives when log in fails', inject(
     [AuthService, Router], (authService: AuthService, router: Router) => {
       spyOn(authService, 'login').and.callFake((model: LoginRequest) => {
