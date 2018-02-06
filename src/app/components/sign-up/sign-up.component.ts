@@ -20,6 +20,7 @@ export class SignUpComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   public register() {
+    this.registerError = '';
     this.authService.register(this.model)
       .subscribe(
         res => this.router.navigate(['/']),

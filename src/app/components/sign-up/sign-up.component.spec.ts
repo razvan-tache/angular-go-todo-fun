@@ -13,6 +13,7 @@ import {RegisterRequest} from '../../modules/core/library/auth/register-request'
 import {Observable} from 'rxjs/Observable';
 
 import * as UsingDataProvider from 'jasmine-data-provider';
+import {sha1} from '@angular/compiler/src/i18n/digest';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -139,6 +140,30 @@ describe('SignUpComponent', () => {
       expect(fixture.debugElement.query(By.css('.register-form-error')).nativeElement.innerHTML).toContain('Error happened');
     });
   }));
+
+  it('should remove the previous error message while trying a new request', async(inject(
+    [AuthService, Router], (authService: AuthService, router: Router) => {
+
+      spyOn(authService, 'register').and.callFake((model: RegisterRequest) => {
+        return Observable.of(new HttpResponse({status: 200, body: model}));
+      });
+
+      spyOn(router, 'navigate');
+
+      component.registerError = 'Error happened';
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        component.register();
+
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
+          expect(fixture.debugElement.query(By.css('.register-form-error')) === null).toBe(true);
+        });
+      });
+    })
+  ));
 
   it('should have the form valid when it is properly filled in', async() => {
     const signUpData = {
