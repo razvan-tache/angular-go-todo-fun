@@ -127,7 +127,7 @@ describe('SignUpComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      expect(fixture.debugElement.query(By.css('.register-form-error'))).toBeNull();
+      expect(fixture.debugElement.query(By.css('.register-form-error')) === null).toBe(true);
     });
   }));
 
