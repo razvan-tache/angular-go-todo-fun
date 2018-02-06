@@ -23,17 +23,6 @@ describe('LoginComponent', () => {
   let buttonEl: DebugElement;
   let formEl: DebugElement;
 
-  function invalidFormDataProvider() {
-    return {
-      'Should fail when an invalid mail is provided: case 1: ':
-        {user: {email: 'razvan', password: '12345678'}, errorElement: '.email-error', message: 'Invalid email'},
-      'Should fail when an invalid mail is provided: case 2: ':
-        {user: {email: '@razvan.razvan', password: '12345678'}, errorElement: '.email-error', message: 'Invalid email'},
-      'Should fail when an invalid password(too short) is provided: case 3: ':
-        {user: {email: 'razvan', password: '1234'}, errorElement: '.password-error', message: 'Password must contain at least 8 chars'}
-    };
-  }
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
@@ -57,6 +46,39 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should do redirect on login with proper credentials', inject(
+    [AuthService, Router], (authService: AuthService, router: Router) => {
+
+      const credentials: LoginRequest = {
+        'email': 'asd@asd.com',
+        'password': '123'
+      };
+
+      spyOn(authService, 'login').and.callFake((model: LoginRequest) => {
+        return Observable.of(new HttpResponse({status: 200, body: model}));
+      });
+
+      spyOn(router, 'navigate').and.callFake(
+        (components: any[]) => { expect(components.pop()).toBe('/'); }
+      );
+
+      component.model = credentials;
+      component.login();
+      expect(component.loginError).toBe('');
+    }
+  ));
+
+  it('should display the error message it receives when log in fails', inject(
+    [AuthService], (authService: AuthService) => {
+      spyOn(authService, 'login').and.callFake(() => {
+        return Observable.throw('Incorrect username or password');
+      });
+
+      component.login();
+      expect(component.loginError).toBe('Incorrect username or password');
+    }
+  ));
 
   it('should have the form invalid when empty', async(() => {
     fixture.detectChanges();
@@ -115,36 +137,14 @@ describe('LoginComponent', () => {
     }));
   });
 
-  it('should do redirect on login with proper credentials', inject(
-    [AuthService, Router], (authService: AuthService, router: Router) => {
-
-      const credentials: LoginRequest = {
-        'email': 'asd@asd.com',
-        'password': '123'
-      };
-
-      spyOn(authService, 'login').and.callFake((model: LoginRequest) => {
-        return Observable.of(new HttpResponse({status: 200, body: model}));
-      });
-
-      spyOn(router, 'navigate').and.callFake(
-        (components: any[]) => { expect(components.pop()).toBe('/'); }
-      );
-
-      component.model = credentials;
-      component.login();
-      expect(component.loginError).toBe('');
-    }
-  ));
-
-  it('should display the error message it receives when log in fails', inject(
-    [AuthService], (authService: AuthService) => {
-      spyOn(authService, 'login').and.callFake(() => {
-        return Observable.throw('Incorrect username or password');
-      });
-
-      component.login();
-      expect(component.loginError).toBe('Incorrect username or password');
-    }
-  ));
+  function invalidFormDataProvider() {
+    return {
+      'Should fail when an invalid mail is provided: case 1: ':
+        {user: {email: 'razvan', password: '12345678'}, errorElement: '.email-error', message: 'Invalid email'},
+      'Should fail when an invalid mail is provided: case 2: ':
+        {user: {email: '@razvan.razvan', password: '12345678'}, errorElement: '.email-error', message: 'Invalid email'},
+      'Should fail when an invalid password(too short) is provided: case 3: ':
+        {user: {email: 'razvan', password: '1234'}, errorElement: '.password-error', message: 'Password must contain at least 8 chars'}
+    };
+  }
 });
