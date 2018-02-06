@@ -59,16 +59,80 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      emailEl.nativeElement.value = 'razvan@razvan.razvan';
-      emailEl.nativeElement.dispatchEvent(new Event('input'));
+      const users = [
+        {email: 'razvan@razvan.razvan', password: '12345678'},
+        {email: 'razvan.razvan.razvan@razvan.razvan', password: '12345678'},
+        {email: 'razvan-razvan.razvan@razvan.razvan', password: '12345678'},
+        {email: 'razvan.-razvan.asd@razvan.r', password: '12345678'}
+      ];
+      for (const user of users) {
+        emailEl.nativeElement.value = user.email;
+        emailEl.nativeElement.dispatchEvent(new Event('input'));
 
-      passwordEl.nativeElement.value = '12345678';
-      passwordEl.nativeElement.dispatchEvent(new Event('input'));
+        passwordEl.nativeElement.value = user.password;
+        passwordEl.nativeElement.dispatchEvent(new Event('input'));
 
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      expect(formEl.nativeElement.checkValidity()).toBe(true);
-      expect(buttonEl.nativeElement.disabled).toBe(false);
+        expect(formEl.nativeElement.checkValidity()).toBe(true);
+        expect(buttonEl.nativeElement.disabled).toBe(false);
+      }
+    });
+  }));
+
+  it('should fail if an invalid email is provided', async(() => {
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const users = [
+        {email: 'razvan', password: '12345678'},
+        {email: '@razvan.razvan', password: '12345678'},
+      ];
+
+      for (const user of users) {
+        emailEl.nativeElement.value = user.email;
+        emailEl.nativeElement.dispatchEvent(new Event('input'));
+
+        passwordEl.nativeElement.value = user.password;
+        passwordEl.nativeElement.dispatchEvent(new Event('input'));
+
+        fixture.detectChanges();
+        expect(formEl.nativeElement.checkValidity()).toBe(false);
+        expect(buttonEl.nativeElement.disabled).toBe(true);
+
+        expect(fixture.debugElement.query(By.css('.email-error'))).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('.email-error')).nativeElement).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('.email-error')).nativeElement.innerHTML).toContain('Invalid email');
+      }
+    });
+  }));
+
+  it('should fail when an invalid password is provided', async(() => {
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const users = [
+        {email: 'razvan@raz.r', password: '1234'}
+      ];
+
+      for (const user of users) {
+        emailEl.nativeElement.value = user.email;
+        emailEl.nativeElement.dispatchEvent(new Event('input'));
+
+        passwordEl.nativeElement.value = user.password;
+        passwordEl.nativeElement.dispatchEvent(new Event('input'));
+
+        fixture.detectChanges();
+
+        expect(buttonEl.nativeElement.disabled).toBe(true);
+        expect(formEl.nativeElement.checkValidity()).toBe(false);
+
+        expect(fixture.debugElement.query(By.css('.password-error'))).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('.password-error')).nativeElement).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('.password-error')).nativeElement.innerHTML).toContain(
+          'Password must contain at least 8 chars'
+        );
+      }
     });
   }));
 
@@ -94,9 +158,6 @@ describe('LoginComponent', () => {
     }
   ));
 
-  //TODO: test invalid emails:
-  //TODO: test small passwords:
-  //TODO: 
   it('should display the error message it receives when log in fails', inject(
     [AuthService, Router], (authService: AuthService, router: Router) => {
       spyOn(authService, 'login').and.callFake((model: LoginRequest) => {
