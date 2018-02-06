@@ -1,7 +1,7 @@
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import {AuthService} from '../../modules/core/services/auth/auth.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -21,7 +21,7 @@ describe('LoginComponent', () => {
   let emailEl: DebugElement;
   let passwordEl: DebugElement;
   let buttonEl: DebugElement;
-  let formEl: DebugElement;
+  let formEl: NgForm;
 
   beforeEach(async(() => {
     // noinspection JSIgnoredPromiseFromCall
@@ -41,7 +41,7 @@ describe('LoginComponent', () => {
     emailEl = fixture.debugElement.query(By.css('[name="email"]'));
     passwordEl = fixture.debugElement.query(By.css('[name="password"]'));
     buttonEl = fixture.debugElement.query(By.css('[type="submit"]'));
-    formEl = fixture.debugElement.query(By.css('[name="loginForm"]'));
+    formEl = fixture.debugElement.query(By.css('[name="loginForm"]')).children[0].injector.get(NgForm);
   });
 
   it('should create', () => {
@@ -60,13 +60,13 @@ describe('LoginComponent', () => {
         return Observable.of(new HttpResponse({status: 200, body: model}));
       });
 
-      spyOn(router, 'navigate').and.callFake(
-        (components: any[]) => { expect(components.pop()).toBe('/'); }
-      );
+      spyOn(router, 'navigate');
 
       component.model = credentials;
       component.login();
       expect(component.loginError).toBe('');
+      expect(authService.login).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalledWith(['/']);
     }
   ));
 
@@ -93,7 +93,7 @@ describe('LoginComponent', () => {
     });
   }));
 
-  it('should display the error message it receives when log in fails', inject(
+  it('should store the error message when it receives one', inject(
     [AuthService], (authService: AuthService) => {
       spyOn(authService, 'login').and.callFake(() => {
         return Observable.throw('Incorrect username or password');
@@ -104,12 +104,38 @@ describe('LoginComponent', () => {
     }
   ));
 
+  it('should not display the error message when it doesn\'t exists', async(() => {
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(fixture.debugElement.query(By.css('.login-form-error'))).toBeNull();
+    });
+  }));
+
+  it('should display the error message when it exists', async(() => {
+    component.loginError = 'Login failed';
+
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(fixture.debugElement.query(By.css('.login-form-error'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('.login-form-error')).nativeElement.innerHTML).toContain('Login failed');
+    });
+  }));
+
+  // it('should clear the error while doing a login request', async(inject(
+  //   [AuthService, Router],
+  //   (authService: AuthService, router: Router) => {
+  //
+  //   }
+  // )));
+  it('should clear the error message after')
   it('should have the form invalid when empty', async(() => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      expect(formEl.nativeElement.checkValidity()).toBe(false);
+      expect(formEl.valid).toBe(false);
       expect(buttonEl.nativeElement.disabled).toBe(true);
     });
   }));
@@ -133,7 +159,7 @@ describe('LoginComponent', () => {
 
         fixture.detectChanges();
 
-        expect(formEl.nativeElement.checkValidity()).toBe(true);
+        expect(formEl.valid).toBe(true);
         expect(buttonEl.nativeElement.disabled).toBe(false);
       }
     });
@@ -151,7 +177,7 @@ describe('LoginComponent', () => {
         passwordEl.nativeElement.dispatchEvent(new Event('input'));
 
         fixture.detectChanges();
-        expect(formEl.nativeElement.checkValidity()).toBe(false);
+        expect(formEl.valid).toBe(false);
         expect(buttonEl.nativeElement.disabled).toBe(true);
 
         expect(fixture.debugElement.query(By.css(data.errorElement))).toBeTruthy();
@@ -164,11 +190,23 @@ describe('LoginComponent', () => {
   function invalidFormDataProvider() {
     return {
       'Should fail when an invalid mail is provided: case 1: ':
-        {user: {email: 'razvan', password: '12345678'}, errorElement: '.email-error', message: 'Invalid email'},
+        {
+          user: {email: 'razvan', password: '12345678'},
+          errorElement: '.email-error',
+          message: 'Invalid email'
+        },
       'Should fail when an invalid mail is provided: case 2: ':
-        {user: {email: '@razvan.razvan', password: '12345678'}, errorElement: '.email-error', message: 'Invalid email'},
+        {
+          user: {email: '@razvan.razvan', password: '12345678'},
+          errorElement: '.email-error',
+          message: 'Invalid email'
+        },
       'Should fail when an invalid password(too short) is provided: case 3: ':
-        {user: {email: 'razvan', password: '1234'}, errorElement: '.password-error', message: 'Password must contain at least 8 chars'}
+        {
+          user: {email: 'razvan', password: '1234'},
+          errorElement: '.password-error',
+          message: 'Password must contain at least 8 characters.'
+        }
     };
   }
 });

@@ -1,7 +1,7 @@
 <div class="container">
   <h3>Login to the App</h3>
 
-  <p *ngIf="loginError !== ''">Error: {{ loginError }}</p>
+  <p *ngIf="loginError !== ''" class="alert alert-danger login-form-error">Error: {{ loginError }}</p>
   <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()">
     <div class="form-group">
       <label for="email">Email</label>
@@ -24,7 +24,7 @@
 
       <div *ngIf="password.invalid && (password.dirty || password.touched)"
            class="alert alert-danger password-error">
-        Password must contain at least 8 chars.
+        Password must contain at least 8 characters.
       </div>
     </div>
 
