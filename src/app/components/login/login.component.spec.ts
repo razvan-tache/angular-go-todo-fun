@@ -123,13 +123,31 @@ describe('LoginComponent', () => {
     });
   }));
 
-  // it('should clear the error while doing a login request', async(inject(
-  //   [AuthService, Router],
-  //   (authService: AuthService, router: Router) => {
-  //
-  //   }
-  // )));
-  it('should clear the error message after')
+  it('should clear the error while doing a login request', async(inject(
+    [AuthService, Router],
+    (authService: AuthService, router: Router) => {
+
+      spyOn(authService, 'login').and.callFake((model: LoginRequest) => {
+        return Observable.of(new HttpResponse({status: 200, body: model}));
+      });
+
+      spyOn(router, 'navigate');
+
+      component.loginError = 'Login failed';
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        component.login();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(fixture.debugElement.query(By.css('.login-form-error'))).toBeNull();
+        });
+      });
+    }
+  )));
+
   it('should have the form invalid when empty', async(() => {
     fixture.detectChanges();
 
