@@ -70,6 +70,29 @@ describe('LoginComponent', () => {
     }
   ));
 
+  it('should call login on submit with valid data', async(() => {
+    spyOn(component, 'login');
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      const userData = {email: 'razvan@razvan.com', password: '12345678'};
+
+      emailEl.nativeElement.value = userData.email;
+      emailEl.nativeElement.dispatchEvent(new Event('input'));
+
+      passwordEl.nativeElement.value = userData.password;
+      passwordEl.nativeElement.dispatchEvent(new Event('input'));
+
+      fixture.detectChanges();
+
+      buttonEl.nativeElement.click();
+      fixture.whenStable().then(() => {
+        expect(component.login).toHaveBeenCalled();
+        expect(component.model).toEqual(userData);
+      });
+    });
+  }));
+
   it('should display the error message it receives when log in fails', inject(
     [AuthService], (authService: AuthService) => {
       spyOn(authService, 'login').and.callFake(() => {
