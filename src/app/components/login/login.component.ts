@@ -14,6 +14,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
+    this.loginError = '';
     this.authService.login(this.model)
       .subscribe(
         res => this.router.navigate(['/']),

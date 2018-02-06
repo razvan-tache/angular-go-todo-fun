@@ -108,7 +108,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      expect(fixture.debugElement.query(By.css('.login-form-error'))).toBeNull();
+      expect(fixture.debugElement.query(By.css('.login-form-error')) === null).toBe(true);
     });
   }));
 
@@ -118,7 +118,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      expect(fixture.debugElement.query(By.css('.login-form-error'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('.login-form-error')) === null).toBe(false);
       expect(fixture.debugElement.query(By.css('.login-form-error')).nativeElement.innerHTML).toContain('Login failed');
     });
   }));
@@ -136,13 +136,17 @@ describe('LoginComponent', () => {
       component.loginError = 'Login failed';
 
       fixture.detectChanges();
-
       fixture.whenStable().then(() => {
+        component.model = {email: 'r@r.com', password: '12345678'};
+
         component.login();
+
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-          expect(fixture.debugElement.query(By.css('.login-form-error'))).toBeNull();
+          fixture.detectChanges();
+
+          expect(fixture.debugElement.query(By.css('.login-form-error')) === null).toBe(true);
         });
       });
     }
