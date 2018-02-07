@@ -36,6 +36,9 @@ describe('Login page checks', () => {
 
     loginPage.inputEmail('valid@email.me');
     loginPage.inputPassword('12345678');
+
+    expect(loginPage.hasEmailError()).toBe(false);
+    expect(loginPage.hasPasswordError()).toBe(false);
   });
 
   it('should not be able to submit the forms while it has error', () => {

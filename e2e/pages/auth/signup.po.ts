@@ -25,4 +25,28 @@ export class SignupPage extends LoginPage {
 
     return null;
   }
+
+  hasLastNameError() {
+    return element(by.css('.lastName-error')).isPresent();
+  }
+
+  hasFirstNameError() {
+    return element(by.css('.firstName-error')).isPresent();
+  }
+
+  focusFirstName() {
+    element(by.css('[name="firstName"]')).click();
+  }
+
+  focusLastName() {
+    element(by.css('[name="lastName"]')).click();
+  }
+
+  inputFirstName(firstName: string) {
+    element(by.css('[name="firstName"]')).sendKeys(firstName);
+  }
+
+  inputLastName(lastName: string) {
+    element(by.css('[name="lastName"]')).sendKeys(lastName);
+  }
 }
