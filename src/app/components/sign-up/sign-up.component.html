@@ -1,7 +1,7 @@
 <div class="container">
   <h3>Create an account</h3>
 
-  <p *ngIf="registerError !== ''" class="alert alert-danger register-form-error">Error: {{ registerError }}</p>2
+  <p *ngIf="registerError !== ''" class="alert alert-danger register-form-error">Error: {{ registerError }}</p>
   <form name="registerForm" #registerForm="ngForm" (ngSubmit)="register()">
     <div class="form-group">
       <label for="email">Email: </label>
@@ -17,19 +17,28 @@
     </div>
 
     <div class="form-group">
-      <label for="lastName">Last name: </label>
-      <input type="text" class="form-control" id="lastName" name="lastName"
-             required
-             [(ngModel)]="model.lastName"
-      />
-    </div>
-
-    <div class="form-group">
       <label for="firstName">First name: </label>
       <input type="text" class="form-control" id="firstName" name="firstName"
              required
-             [(ngModel)]="model.firstName"
+             [(ngModel)]="model.firstName" #firstName="ngModel"
       />
+
+      <div  *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)"
+            class="alert alert-danger firstName-error">
+        First name is mandatory.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last name: </label>
+      <input type="text" class="form-control" id="lastName" name="lastName"
+             required
+             [(ngModel)]="model.lastName" #lastName="ngModel"
+      />
+      <div  *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)"
+            class="alert alert-danger lastName-error">
+        Last name is mandatory.
+      </div>
     </div>
 
     <div class="form-group">

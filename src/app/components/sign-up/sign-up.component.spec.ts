@@ -250,11 +250,35 @@ describe('SignUpComponent', () => {
           errorElement: '.email-error',
           message: 'Invalid email'
         },
-      'should fail password too short validation:':
+      'should fail email is mandatory':
+        {
+          user: {email: '', firstName: 'fn', lastName: 'ln', password: '12345678'},
+          errorElement: '.email-error',
+          message: 'Invalid email'
+        },
+      'should fail password too short validation':
         {
           user: {email: 'r@razvan.r', firstName: 'fn', lastName: 'ln', password: '1234'},
           errorElement: '.password-error',
           message: 'Password must contain at least 8 characters.'
+        },
+      'should fail password is mandatory':
+        {
+          user: {email: 'r@razvan.r', firstName: 'fn', lastName: 'ln', password: ''},
+          errorElement: '.password-error',
+          message: 'Password must contain at least 8 characters.'
+        },
+      'should fail first name is mandatory':
+        {
+          user: {email: 'r@razvan.r', firstName: '', lastName: 'ln', password: '1234'},
+          errorElement: '.firstName-error',
+          message: 'First name is mandatory'
+        },
+      'should fail last name is mandatory':
+        {
+          user: {email: 'r@razvan.r', firstName: 'fn', lastName: '', password: '1234'},
+          errorElement: '.lastName-error',
+          message: 'Last name is mandatory'
         }
     };
   }
