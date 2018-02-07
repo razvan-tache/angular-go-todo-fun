@@ -1,4 +1,5 @@
 import {LoginPage} from '../../pages/auth/login.po';
+import {log} from 'util';
 
 describe('Login page checks', () => {
   let loginPage: LoginPage;
@@ -21,5 +22,12 @@ describe('Login page checks', () => {
     expect(loginPage.hasPasswordError()).toBe(false);
   });
 
-  // it('should have an ')
+  it('should display errors after touching the inputs and then leaving them', () => {
+    loginPage.focusEmail();
+    loginPage.focusPassword();
+    loginPage.focusEmail();
+
+    expect(loginPage.hasEmailError()).toBe(true);
+    expect(loginPage.hasPasswordError()).toBe(true);
+  });
 });
