@@ -1,4 +1,4 @@
-import { AppPage } from './app.po';
+import { AppPage } from './pages/app.po';
 
 describe('angular-go-todo-fun App', () => {
   let page: AppPage;
