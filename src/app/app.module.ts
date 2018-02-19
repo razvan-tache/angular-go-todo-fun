@@ -13,8 +13,7 @@ import { FakeBackendModule } from './modules/fake-backend/fake-backend.module';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatIconModule, MatListModule, MatSidenav, MatSidenavContainer, MatSidenavModule, MatToolbarModule} from '@angular/material';
+import {AppMaterialModule} from './modules/material/app-material.module';
 
 /**
  * If not logged in redirect to /login or /register
@@ -42,17 +41,12 @@ import {MatIconModule, MatListModule, MatSidenav, MatSidenavContainer, MatSidena
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRouterModule,
     CoreModule,
     FakeBackendModule,
     HttpClientModule,
     FormsModule,
-
-    MatIconModule,
-    MatListModule,
-    MatToolbarModule,
-    MatSidenavModule
+    AppMaterialModule
   ],
   providers: [
     {
