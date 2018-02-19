@@ -9,7 +9,7 @@ describe('angular-go-todo-fun App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getHeading()).toEqual('Welcome to app!');
+    expect(page.getHeading()).toEqual('Angular with Go: To Do Fun');
   });
 
   it('should be redirected on login page as guest user', () => {
