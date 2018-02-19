@@ -8,12 +8,40 @@ import {LoginComponent} from '../../components/login/login.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {LogoutComponent} from '../../components/logout/logout.component';
 import {AnonymousGuardService} from './services/anonymous-guard.service';
+import {LoggedInLayoutComponent} from '../../components/logged-in-layout/logged-in-layout.component';
+import {GuestLayoutComponent} from '../../components/guest-layout/guest-layout.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuardService]},
-  { path: 'sign-up', component: SignUpComponent, canActivate: [AnonymousGuardService] },
-  { path: 'login', component: LoginComponent, canActivate: [AnonymousGuardService] },
-  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService]}
+  {
+    path: '',
+    component: LoggedInLayoutComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: '',
+        canActivateChild: [AuthGuardService],
+        children: [
+          { path: '', component: HomeComponent },
+          { path: 'logout', component: LogoutComponent }
+        ]
+      }
+    ]
+  },
+  {
+    path: '',
+    component: GuestLayoutComponent,
+    canActivate: [AnonymousGuardService],
+    children: [
+      {// TODO: Test the redirect properly: You should not be able to access these routes
+        path: '',
+        canActivateChild: [AnonymousGuardService],
+        children: [
+          { path: 'sign-up', component: SignUpComponent },
+          { path: 'login', component: LoginComponent }
+        ]
+      }
+    ]
+  }
 ];
 
 @NgModule({

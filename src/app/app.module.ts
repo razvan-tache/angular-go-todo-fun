@@ -14,6 +14,8 @@ import { LoginComponent } from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
 import {AppMaterialModule} from './modules/material/app-material.module';
+import { GuestLayoutComponent } from './components/guest-layout/guest-layout.component';
+import { LoggedInLayoutComponent } from './components/logged-in-layout/logged-in-layout.component';
 
 /**
  * If not logged in redirect to /login or /register
@@ -37,7 +39,9 @@ import {AppMaterialModule} from './modules/material/app-material.module';
     HomeComponent,
     SignUpComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    GuestLayoutComponent,
+    LoggedInLayoutComponent
   ],
   imports: [
     BrowserModule,
