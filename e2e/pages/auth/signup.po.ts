@@ -3,7 +3,7 @@ import {LoginPage} from './login.po';
 
 export class SignupPage extends LoginPage {
   navigateTo() {
-    browser.get('/sign-up');
+    return browser.get('/sign-up');
   }
 
   isOnPage() {

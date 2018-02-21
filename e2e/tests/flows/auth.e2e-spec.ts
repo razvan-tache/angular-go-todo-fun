@@ -4,6 +4,7 @@ import {HomePage} from '../../pages/home/app.po';
 import {browser} from 'protractor';
 
 import * as Faker from 'faker';
+import {async} from '@angular/core/testing';
 
 describe('The auth flows are working', () => {
   const email: string = Faker.internet.email();
@@ -20,6 +21,11 @@ describe('The auth flows are working', () => {
     loginPage = new LoginPage();
     homePage = new HomePage();
   });
+
+  afterEach(async() => {
+    browser.get('/logout');
+  });
+
   it('should be able to sign up with a new account', () => {
     signUpPage.navigateTo();
 
@@ -67,6 +73,27 @@ describe('The auth flows are working', () => {
     expect(homePage.getHomeComponentMessage()).toEqual('home works!');
     browser.get('/logout');
     loginPage.isOnPage();
+  });
+
+  it('should not be able to access neither login not signup after login', () => {
+    loginPage.navigateTo();
+
+    loginPage.inputEmail(email);
+    loginPage.inputPassword(password);
+
+    loginPage.submitForm();
+
+    browser.wait(function() {
+      return browser.getCurrentUrl().then(function (url) {
+        return !(/login/.test(url));
+      });
+    }).then(function () {
+      loginPage.navigateTo();
+      homePage.isOnPage();
+
+      signUpPage.navigateTo();
+      homePage.isOnPage();
+    });
   });
 });
 

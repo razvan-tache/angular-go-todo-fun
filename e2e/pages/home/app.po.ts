@@ -5,9 +5,8 @@ export class HomePage {
     return browser.get('/');
   }
 
-  isOn() {
-    console.log(browser.getCurrentUrl());
-    return browser.getCurrentUrl();
+  isOnPage() {
+    expect(browser.getCurrentUrl()).toBe(browser.baseUrl + '/');
   }
   getHeading() {
     return element(by.css('app-root h1')).getText();

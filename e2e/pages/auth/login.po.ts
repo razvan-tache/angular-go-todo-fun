@@ -2,7 +2,7 @@ import {browser, by, element} from 'protractor';
 
 export class LoginPage {
   navigateTo() {
-    browser.get('/login');
+    return browser.get('/login');
   }
 
   isOnPage() {
