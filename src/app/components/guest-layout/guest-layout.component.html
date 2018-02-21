@@ -9,10 +9,12 @@
 <!--<router-outlet></router-outlet>-->
 <div class="app-body-container">
   <mat-toolbar color="primary" class="app-toolbar">
-    <button mat-icon-button (click)="sideNav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
     <h1 class="app-title">{{title}}</h1>
+
+    <span class="toolbar-fill-remaining-space"></span>
+
+    <a routerLink="/login">Log in</a>
+    <a routerLink="/sign-up">Sign up</a>
   </mat-toolbar>
 </div>
 
