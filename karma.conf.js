@@ -23,8 +23,6 @@ module.exports = function (config) {
       environment: 'dev'
     },
     files: [
-      { pattern: './src/test.ts', watched: false, included: true },
-      {pattern: './node_modules/@angular/**/*', included: false, watched: false},
       { pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css', watched: false, included: true }
     ],
     reporters: ['progress', 'kjhtml'],
