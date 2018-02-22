@@ -9,9 +9,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   imports: [
     BrowserAnimationsModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatButtonModule,
+    MatCardModule
   ],
   exports: [
     BrowserAnimationsModule,
