@@ -4,32 +4,31 @@
     <mat-card-title>Login to the App</mat-card-title>
 
     <mat-card-content>
-      <p *ngIf="loginError !== ''" class="alert alert-danger login-form-error">Error: {{ loginError }}</p>
+      <p *ngIf="loginError !== ''" class="login-form-error">Error: {{ loginError }}</p>
       <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()">
-        <mat-form-field class="form-group full-width-input">
-          <label for="email">Email</label>
-          <input matInput type="email" class="form-control" id="email" name="email"
+        <mat-form-field class="full-width-input">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" id="email" name="email"
                  required email
                  [(ngModel)]="model.email" #email="ngModel"
           />
-          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)"
-               class="alert alert-danger email-error">
+
+          <mat-error class="email-error">
             Invalid email
           </mat-error>
         </mat-form-field>
 
-        <mat-input-container class="form-group full-width-input">
-          <label for="password">Password</label>
-          <input matInput type="password" class="form-control" id="password" name="password"
+        <mat-form-field class="full-width-input">
+          <mat-label for="password">Password</mat-label>
+          <input matInput type="password" id="password" name="password"
                  required minlength="8"
                  [(ngModel)]="model.password" #password="ngModel"
-          >
+          />
 
-          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)"
-               class="alert alert-danger password-error">
+          <mat-error class="password-error">
             Password must contain at least 8 characters.
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
 
         <mat-card-actions>
           <button mat-raised-button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Log in</button>
