@@ -1,33 +1,40 @@
-<div class="container">
-  <h3>Login to the App</h3>
+<div class="component-container">
+  <mat-card>
 
-  <p *ngIf="loginError !== ''" class="alert alert-danger login-form-error">Error: {{ loginError }}</p>
-  <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" name="email"
-             required email
-             [(ngModel)]="model.email" #email="ngModel"
-      />
-      <div *ngIf="email.invalid && (email.dirty || email.touched)"
-           class="alert alert-danger email-error">
-        Invalid email
-      </div>
-    </div>
+    <mat-card-title>Login to the App</mat-card-title>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" name="password"
-             required minlength="8"
-             [(ngModel)]="model.password" #password="ngModel"
-      />
+    <mat-card-content>
+      <p *ngIf="loginError !== ''" class="alert alert-danger login-form-error">Error: {{ loginError }}</p>
+      <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()">
+        <mat-form-field class="form-group full-width-input">
+          <label for="email">Email</label>
+          <input matInput type="email" class="form-control" id="email" name="email"
+                 required email
+                 [(ngModel)]="model.email" #email="ngModel"
+          />
+          <mat-error *ngIf="email.invalid && (email.dirty || email.touched)"
+               class="alert alert-danger email-error">
+            Invalid email
+          </mat-error>
+        </mat-form-field>
 
-      <div *ngIf="password.invalid && (password.dirty || password.touched)"
-           class="alert alert-danger password-error">
-        Password must contain at least 8 characters.
-      </div>
-    </div>
+        <mat-input-container class="form-group full-width-input">
+          <label for="password">Password</label>
+          <input matInput type="password" class="form-control" id="password" name="password"
+                 required minlength="8"
+                 [(ngModel)]="model.password" #password="ngModel"
+          >
 
-    <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Log in</button>
-  </form>
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)"
+               class="alert alert-danger password-error">
+            Password must contain at least 8 characters.
+          </mat-error>
+        </mat-input-container>
+
+        <mat-card-actions>
+          <button mat-raised-button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Log in</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

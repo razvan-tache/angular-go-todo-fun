@@ -13,6 +13,7 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 
 import * as UsingDataProvider from 'jasmine-data-provider';
+import {AppMaterialModule} from '../../modules/material/app-material.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -27,7 +28,7 @@ describe('LoginComponent', () => {
     // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule ],
+      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule, AppMaterialModule ],
       providers: [ AuthService ]
     })
     .compileComponents();
@@ -199,12 +200,16 @@ describe('LoginComponent', () => {
         passwordEl.nativeElement.dispatchEvent(new Event('input'));
 
         fixture.detectChanges();
-        expect(formEl.valid).toBe(false);
-        expect(buttonEl.nativeElement.disabled).toBe(true);
+        fixture.whenStable().then(() => {
+          fixture.detectChanges();
 
-        expect(fixture.debugElement.query(By.css(data.errorElement))).toBeTruthy();
-        expect(fixture.debugElement.query(By.css(data.errorElement)).nativeElement).toBeTruthy();
-        expect(fixture.debugElement.query(By.css(data.errorElement)).nativeElement.innerHTML).toContain(data.message);
+          expect(formEl.valid).toBe(false);
+          expect(buttonEl.nativeElement.disabled).toBe(true);
+
+          expect(fixture.debugElement.query(By.css(data.errorElement))).toBeTruthy();
+          expect(fixture.debugElement.query(By.css(data.errorElement)).nativeElement).toBeTruthy();
+          expect(fixture.debugElement.query(By.css(data.errorElement)).nativeElement.innerHTML).toContain(data.message);
+        });
       });
     }));
   });
