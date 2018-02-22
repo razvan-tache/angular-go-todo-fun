@@ -14,6 +14,9 @@ import {DebugElement} from '@angular/core';
 
 import * as UsingDataProvider from 'jasmine-data-provider';
 import {AppMaterialModule} from '../../modules/material/app-material.module';
+import {CoreModule} from '../../modules/core/core.module';
+import {CommonModule} from '@angular/common';
+import {MatInput} from '@angular/material';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -28,7 +31,7 @@ describe('LoginComponent', () => {
     // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule, AppMaterialModule ],
+      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule, CommonModule, AppMaterialModule ],
       providers: [ AuthService ]
     })
     .compileComponents();
@@ -195,9 +198,13 @@ describe('LoginComponent', () => {
       fixture.whenStable().then(() => {
         emailEl.nativeElement.value = data.user.email;
         emailEl.nativeElement.dispatchEvent(new Event('input'));
+        emailEl.nativeElement.dispatchEvent(new Event('blur'));
+        // emailEl.nativeElement.injector.get(MatInput).updateErrorState();
 
         passwordEl.nativeElement.value = data.user.password;
         passwordEl.nativeElement.dispatchEvent(new Event('input'));
+        passwordEl.nativeElement.dispatchEvent(new Event('blur'));
+
 
         fixture.detectChanges();
         fixture.whenStable().then(() => {
