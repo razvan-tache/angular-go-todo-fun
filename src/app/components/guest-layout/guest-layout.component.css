@@ -25,3 +25,10 @@
 .toolbar-fill-remaining-space {
   flex: 1 1 auto;
 }
+
+.app-toolbar a {
+  color: #fff;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+}
