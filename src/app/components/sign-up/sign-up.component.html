@@ -1,61 +1,57 @@
-<div class="container">
-  <h3>Create an account</h3>
+<div class="component-container">
+  <mat-card>
+    <mat-card-title>Create an account</mat-card-title>
 
-  <p *ngIf="registerError !== ''" class="alert alert-danger register-form-error">Error: {{ registerError }}</p>
-  <form name="registerForm" #registerForm="ngForm" (ngSubmit)="register()">
-    <div class="form-group">
-      <label for="email">Email: </label>
-      <input type="text" class="form-control" id="email" name="email"
-             required email
-             [(ngModel)]="model.email" #email="ngModel"
-      />
+    <mat-card-content>
+      <p *ngIf="registerError !== ''" class="alert alert-danger register-form-error">Error: {{ registerError }}</p>
 
-      <div *ngIf="email.invalid && (email.dirty || email.touched)"
-           class="alert alert-error email-error">
-        Invalid email
-      </div>
-    </div>
+      <form name="registerForm" #registerForm="ngForm" (ngSubmit)="register()">
+        <mat-form-field class="full-width-input">
+          <mat-label for="email">Email</mat-label>
 
-    <div class="form-group">
-      <label for="firstName">First name: </label>
-      <input type="text" class="form-control" id="firstName" name="firstName"
-             required
-             [(ngModel)]="model.firstName" #firstName="ngModel"
-      />
+          <input matInput type="text" id="email" name="email"
+                 required email
+                 [(ngModel)]="model.email" #email="ngModel"
+          />
 
-      <div  *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)"
-            class="alert alert-danger firstName-error">
-        First name is mandatory.
-      </div>
-    </div>
+          <mat-error class="email-error">Invalid email</mat-error>
+        </mat-form-field>
 
-    <div class="form-group">
-      <label for="lastName">Last name: </label>
-      <input type="text" class="form-control" id="lastName" name="lastName"
-             required
-             [(ngModel)]="model.lastName" #lastName="ngModel"
-      />
-      <div  *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)"
-            class="alert alert-danger lastName-error">
-        Last name is mandatory.
-      </div>
-    </div>
+        <mat-form-field class="full-width-input">
+          <mat-label for="firstName">First name</mat-label>
+          <input matInput type="text" id="firstName" name="firstName"
+                 required
+                 [(ngModel)]="model.firstName" #firstName="ngModel"
+          />
 
-    <div class="form-group">
-      <label for="password">Password </label>
-      <input type="password" class="form-control" id="password" name="password"
-             required minlength="8"
-             [(ngModel)]="model.password" #password="ngModel"
-      />
+          <mat-error class="firstName-error">First name is mandatory.</mat-error>
+        </mat-form-field>
 
-      <div *ngIf="password.invalid && (password.touched || password.dirty)"
-           class="alert alert-danger password-error">
-        Password must contain at least 8 characters.
-      </div>
-    </div>
+        <mat-form-field class="full-width-input">
+          <mat-label for="lastName">Last name</mat-label>
+          <input matInput type="text" id="lastName" name="lastName"
+                 required
+                 [(ngModel)]="model.lastName" #lastName="ngModel"
+          />
+          <mat-error class="lastName-error">Last name is mandatory.</mat-error>
+        </mat-form-field>
 
-    <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">
-      Register
-    </button>
-  </form>
+        <mat-form-field class="full-width-input">
+          <mat-label for="password">Password </mat-label>
+          <input matInput type="password" id="password" name="password"
+                 required minlength="8"
+                 [(ngModel)]="model.password" #password="ngModel"
+          />
+
+          <mat-error class="password-error">Password must contain at least 8 characters.</mat-error>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-raised-button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">
+            Register
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

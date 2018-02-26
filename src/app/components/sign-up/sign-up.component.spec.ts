@@ -13,7 +13,8 @@ import {RegisterRequest} from '../../modules/core/library/auth/register-request'
 import {Observable} from 'rxjs/Observable';
 
 import * as UsingDataProvider from 'jasmine-data-provider';
-import {sha1} from '@angular/compiler/src/i18n/digest';
+import {CommonModule} from '@angular/common';
+import {AppMaterialModule} from '../../modules/material/app-material.module';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -29,7 +30,7 @@ describe('SignUpComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SignUpComponent ],
-      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule ],
+      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule, CommonModule, AppMaterialModule ],
       providers: [ AuthService ]
     })
     .compileComponents();
@@ -211,15 +212,19 @@ describe('SignUpComponent', () => {
       fixture.whenStable().then(() => {
         emailEl.nativeElement.value = data.user.email;
         emailEl.nativeElement.dispatchEvent(new Event('input'));
+        emailEl.nativeElement.dispatchEvent(new Event('blur'));
 
         firstNameEl.nativeElement.value = data.user.firstName;
         firstNameEl.nativeElement.dispatchEvent(new Event('input'));
+        firstNameEl.nativeElement.dispatchEvent(new Event('blur'));
 
         lastNameEl.nativeElement.value = data.user.lastName;
         lastNameEl.nativeElement.dispatchEvent(new Event('input'));
+        lastNameEl.nativeElement.dispatchEvent(new Event('blur'));
 
         passwordEl.nativeElement.value = data.user.password;
         passwordEl.nativeElement.dispatchEvent(new Event('input'));
+        passwordEl.nativeElement.dispatchEvent(new Event('blur'));
 
         fixture.detectChanges();
 

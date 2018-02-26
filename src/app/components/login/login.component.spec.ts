@@ -14,9 +14,7 @@ import {DebugElement} from '@angular/core';
 
 import * as UsingDataProvider from 'jasmine-data-provider';
 import {AppMaterialModule} from '../../modules/material/app-material.module';
-import {CoreModule} from '../../modules/core/core.module';
 import {CommonModule} from '@angular/common';
-import {MatInput} from '@angular/material';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -199,7 +197,6 @@ describe('LoginComponent', () => {
         emailEl.nativeElement.value = data.user.email;
         emailEl.nativeElement.dispatchEvent(new Event('input'));
         emailEl.nativeElement.dispatchEvent(new Event('blur'));
-        // emailEl.nativeElement.injector.get(MatInput).updateErrorState();
 
         passwordEl.nativeElement.value = data.user.password;
         passwordEl.nativeElement.dispatchEvent(new Event('input'));
