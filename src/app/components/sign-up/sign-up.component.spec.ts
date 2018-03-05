@@ -115,7 +115,7 @@ describe('SignUpComponent', () => {
   }));
 
   it('should store the error message it receives on error', inject([AuthService], ((authService: AuthService) => {
-    spyOn(authService, 'register').and.callFake((model: RegisterRequest) => {
+    spyOn(authService, 'register').and.callFake(() => {
       return Observable.throw('Email already used by another user');
     });
 

@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoggedInLayoutComponent } from './logged-in-layout.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppMaterialModule} from '../../modules/material/app-material.module';
-import {AppComponent} from '../app/app.component';
 
 describe('LoggedInLayoutComponent', () => {
   let component: LoggedInLayoutComponent;

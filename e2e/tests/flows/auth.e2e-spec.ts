@@ -4,7 +4,6 @@ import {HomePage} from '../../pages/home/app.po';
 import {browser} from 'protractor';
 
 import * as Faker from 'faker';
-import {async} from '@angular/core/testing';
 
 describe('The auth flows are working', () => {
   const email: string = Faker.internet.email();
