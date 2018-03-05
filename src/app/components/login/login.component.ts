@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {AuthService} from '../../modules/core/services/auth/auth.service';
 import {LoginRequest} from '../../modules/core/library/auth/login-request';
 import {Router} from '@angular/router';
@@ -17,7 +17,7 @@ export class LoginComponent {
     this.loginError = '';
     this.authService.login(this.model)
       .subscribe(
-        res => this.router.navigate(['/']),
+        () => this.router.navigate(['/']),
         error => this.loginError = error
       );
   }

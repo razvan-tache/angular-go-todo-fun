@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {RegisterRequest} from '../../modules/core/library/auth/register-request';
 import {AuthService} from '../../modules/core/services/auth/auth.service';
 import {Router} from '@angular/router';
@@ -23,7 +23,7 @@ export class SignUpComponent {
     this.registerError = '';
     this.authService.register(this.model)
       .subscribe(
-        res => this.router.navigate(['/']),
+        () => this.router.navigate(['/']),
         error => this.registerError = error
       );
   }

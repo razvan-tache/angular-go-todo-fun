@@ -1,4 +1,4 @@
-import {TestBed, inject, getTestBed, async, tick, fakeAsync} from '@angular/core/testing';
+import {TestBed, inject, getTestBed} from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 
@@ -77,7 +77,7 @@ describe('AuthService', () => {
   it('should fail register for existing username', inject([AuthService], (service: AuthService) => {
     service.register({email: 'razvan@r.com', password: 'myPass', lastName: 'last name', firstName: 'first name'})
       .subscribe(
-        res => {},
+        () => {},
         error => {
           expect(error.statusText).toEqual('Email already exists');
           expect(service.isLoggedIn()).toBeFalsy();
@@ -109,7 +109,7 @@ describe('AuthService', () => {
   it('should fail to login user', inject([AuthService], (service: AuthService) => {
     service.login({email: 'razvan@a.com', password: 'myPass'})
       .subscribe(
-        res => {},
+        () => {},
         error => {
           expect(error.statusText).toBe('Invalid username or password');
 
