@@ -3,13 +3,16 @@ import { AppComponent } from './app.component';
 
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppMaterialModule} from '../../modules/material/app-material.module';
+import {LayoutModule, MediaMatcher} from '@angular/cdk/layout';
+import {ChangeDetectorRef} from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AppMaterialModule
+        AppMaterialModule,
+        LayoutModule
       ],
       declarations: [
         AppComponent

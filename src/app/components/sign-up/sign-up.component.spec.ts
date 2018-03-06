@@ -15,6 +15,7 @@ import {Observable} from 'rxjs/Observable';
 import * as UsingDataProvider from 'jasmine-data-provider';
 import {CommonModule} from '@angular/common';
 import {AppMaterialModule} from '../../modules/material/app-material.module';
+import {LayoutModule} from '@angular/cdk/layout';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -30,7 +31,7 @@ describe('SignUpComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SignUpComponent ],
-      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule, CommonModule, AppMaterialModule ],
+      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule, CommonModule, AppMaterialModule, LayoutModule ],
       providers: [ AuthService ]
     })
     .compileComponents();

@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoggedInLayoutComponent } from './logged-in-layout.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppMaterialModule} from '../../modules/material/app-material.module';
+import {ChangeDetectorRef} from '@angular/core';
+import {LayoutModule, MediaMatcher} from '@angular/cdk/layout';
 
 describe('LoggedInLayoutComponent', () => {
   let component: LoggedInLayoutComponent;
@@ -12,7 +14,8 @@ describe('LoggedInLayoutComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AppMaterialModule
+        AppMaterialModule,
+        LayoutModule
       ],
       declarations: [ LoggedInLayoutComponent ]
     })
@@ -31,11 +34,11 @@ describe('LoggedInLayoutComponent', () => {
 
   it(`should have as title 'app'`, async(() => {
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Angular with Go: To Do Fun');
+    expect(app.title).toEqual('To Do Fun');
   }));
   it('should render title in a h1 tag', async(() => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Angular with Go: To Do Fun');
+    expect(compiled.querySelector('h1').textContent).toContain('To Do Fun');
   }));
 });

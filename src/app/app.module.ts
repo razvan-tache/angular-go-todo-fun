@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
 import { AppRouterModule } from './modules/router/app-router.module';
 
@@ -16,6 +16,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import {AppMaterialModule} from './modules/material/app-material.module';
 import { GuestLayoutComponent } from './components/guest-layout/guest-layout.component';
 import { LoggedInLayoutComponent } from './components/logged-in-layout/logged-in-layout.component';
+import {LayoutModule} from '@angular/cdk/layout';
 
 /**
  * If not logged in redirect to /login or /register
@@ -46,6 +47,7 @@ import { LoggedInLayoutComponent } from './components/logged-in-layout/logged-in
   imports: [
     BrowserModule,
     AppRouterModule,
+    LayoutModule,
     CoreModule,
     FakeBackendModule,
     HttpClientModule,
